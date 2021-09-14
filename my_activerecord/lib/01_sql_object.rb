@@ -5,18 +5,22 @@ require 'active_support/inflector'
 
 class SQLObject
   def self.columns
-    # ...
+    DBConnection.execute2(<<-SQL,"#{self}")
+    SELECT *
+    FROM ?
+    SQL
+    
   end
 
   def self.finalize!
   end
 
   def self.table_name=(table_name)
-    # ...
+    @table_name = table_name
   end
 
   def self.table_name
-    # ...
+    @table_name ||= "cats"
   end
 
   def self.all
